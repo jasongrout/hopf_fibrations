@@ -35,6 +35,11 @@ High quality::
 Low: .63s
 High: 20.44s
 
+a8bcb7d
+-------
+Low: 0.12s
+High: 2.65s
+
 
 
 """
