@@ -13,6 +13,8 @@ http://www.nilesjohnson.net/hopf.html for more information.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+NEEDS to import fib_param2 from hopf.pyx
+
 """
 
 """
@@ -45,6 +47,7 @@ High: 2.65s
 Low: 0.11s
 High: 0.57s
 
+
 """
 
 def draw_frame(f,n,dir="./frames/", resolution=304, high_quality=True, only_show=False):
@@ -70,35 +73,6 @@ def draw_frame(f,n,dir="./frames/", resolution=304, high_quality=True, only_show
         out_file = dir+'hopf-frame%08d'%n+'.png'
         g.save(filename=out_file)
     return None
-
-def fib_param2(base_point,pm=1):
-    """
-    Fiber parametrization function.  Returns a parametric curve for
-    the fiber over base point (a,b,c).
-    """
-    aa,bb,cc = base_point
-    if cc^2 >= 1:
-        raise ValueError("c = "+str(cc)+" must have absolute value less than 1")
-    verbose('c^2 = '+str(cc^2), level=3)
-    pp(ph,a,b,c,al,be,w,x,y,z,r,i,th) = i*r/sqrt(1-w^2)
-    p_condensed_x(ph)=(pp.subs(i=x).subs(r=arccos(w)/pi)
-                        .subs(w=al*cos(th),x=-1*be*cos(ph),y=-1*be*sin(ph),z=al*sin(th)) 
-                        .subs(th=atan2(-a,b)-ph).subs(al=sqrt((1+c)/2),be=sqrt((1 - c)/2))
-                        .subs(a=aa,b=bb,c=cc))
-    p_condensed_y(ph)=(pp.subs(i=y).subs(r=arccos(w)/pi)
-                        .subs(w=al*cos(th),x=-1*be*cos(ph),y=-1*be*sin(ph),z=al*sin(th)) 
-                        .subs(th=atan2(-a,b)-ph).subs(al=sqrt((1+c)/2),be=sqrt((1 - c)/2))
-                        .subs(a=aa,b=bb,c=cc))
-    p_condensed_z(ph)=(pp.subs(i=z).subs(r=arccos(w)/pi)
-                        .subs(w=al*cos(th),x=-1*be*cos(ph),y=-1*be*sin(ph),z=al*sin(th)) 
-                        .subs(th=atan2(-a,b)-ph).subs(al=sqrt((1+c)/2),be=sqrt((1 - c)/2))
-                        .subs(a=aa,b=bb,c=cc))
-    p_x,p_y,p_z = (fast_callable(p_condensed_x, vars=[ph], domain=RDF),
-            fast_callable(p_condensed_y, vars=[ph], domain=RDF),
-            fast_callable(p_condensed_z, vars=[ph], domain=RDF))
-    def f(ph):
-         return p_x(ph), p_y(ph), p_z(ph)
-    return f
 
 from sage.plot.plot3d.tachyon import Tachyon
 from sage.misc.misc import verbose
