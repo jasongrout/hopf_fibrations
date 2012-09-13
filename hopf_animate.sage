@@ -37,8 +37,6 @@ High: 20.44s
 
 
 
-
-
 """
 
 def draw_frame(f,n,dir="./frames/", resolution=304, high_quality=True, only_show=False):
@@ -71,6 +69,7 @@ def fib_param2(base_point,pm=1):
     Fiber parametrization function.  Returns a parametric curve for
     the fiber over base point (a,b,c).
     """
+    from math import sqrt, atan2, sin, cos, acos
     a,b,c = base_point
     if c^2 >= 1:
         raise ValueError("c = "+str(c)+" must have absolute value less than 1")
@@ -80,11 +79,9 @@ def fib_param2(base_point,pm=1):
     verbose('(al,be) = (%.3f..,%.3f..)'%(al,be), level=3)
 
     def param_func(ph):
-        #th = acp - ph - (pm - 1)*pi/2
         th = atan2(-1*a, b) - ph
         (w,x,y,z) = (al*cos(th), -1*be*cos(ph), -1*be*sin(ph), al*sin(th))
-        #q = (w,x,y,z)
-        r = arccos(w)/pi
+        r = acos(w)/pi
         (X,Y,Z) = (i*r/sqrt(1-w^2) for i in (x,y,z))
         return (X,Y,Z)
     
