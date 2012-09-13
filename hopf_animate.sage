@@ -15,6 +15,32 @@ http://www.nilesjohnson.net/hopf.html for more information.
 
 """
 
+"""
+Benchmark Timings:
+
+Low quality::
+
+    basespiral = BaseSpiral(1,(0,pi/2),(pi,0),'sph', include_final=True)
+    draw_frame(basespiral.points()[5:8], n=0, high_quality=False, only_show=True)
+
+High quality::
+
+    basespiral = BaseSpiral(1,(0,pi/2),(pi,0),'sph', include_final=True)
+    draw_frame(basespiral.points()[5:8], n=0, high_quality=True, only_show=True)
+
+
+36a648e09
+---------
+
+Low: .63s
+High: 20.44s
+
+
+
+
+
+"""
+
 def draw_frame(f,n,dir="./frames/", resolution=304, high_quality=True, only_show=False):
     """
     Draws one frame of the animation.  Inputs are a list of points on
