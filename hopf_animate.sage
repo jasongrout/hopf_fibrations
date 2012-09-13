@@ -47,6 +47,11 @@ High: 2.65s
 Low: 0.11s
 High: 0.57s
 
+9c88cc0
+-------
+
+Low: .04s
+High: 0.34s
 
 """
 
